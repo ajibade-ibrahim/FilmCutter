@@ -92,7 +92,7 @@ namespace FilmCutter
 
         private static string[] GetPeriodsFromFile(string filename)
         {
-            //00:12:34 - 01:23:13
+            // 00:12:34 - 01:23:13
             var reader = new StreamReader(filename);
             var fileContent = reader.ReadToEnd();
             Console.WriteLine("File content: {0}", fileContent);

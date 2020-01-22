@@ -50,7 +50,7 @@ namespace FilmCutter
                     // This example will create a 25 second video, starting from the
                     // 30th second of the original video.
                     //// First parameter requests the starting frame to cut the media from.
-                    //// Second parameter requests how long to cut the video.
+                    //// Second parameter requests how long to cut the video. 
                     var span3 = span2 - span1;
                     options.CutMedia(span1, span3);
                     options.VideoSize = VideoSize.Hd720;

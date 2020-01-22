@@ -14,7 +14,7 @@ namespace FilmCutter
         {
             try
             {
-                //period: 00:12:23 - 01:45:45
+                // period: 00:12:23 - 01:45:45
                 var inputFile = new MediaFile
                 {
                     Filename = filename

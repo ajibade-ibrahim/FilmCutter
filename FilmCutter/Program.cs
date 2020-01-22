@@ -14,7 +14,7 @@ namespace FilmCutter
         {
             try
             {
-                // period: 00:12:23 - 01:45:45
+                //period: 00:12:23 - 01:45:45
                 var inputFile = new MediaFile
                 {
                     Filename = filename
@@ -92,14 +92,9 @@ namespace FilmCutter
 
         private static string[] GetPeriodsFromFile(string filename)
         {
-            // 00:12:34 - 01:23:13
-            string fileContent;
-
-            using (var reader = new StreamReader(filename))
-            {
-                fileContent = reader.ReadToEnd();
-            }
-
+            //00:12:34 - 01:23:13
+            var reader = new StreamReader(filename);
+            var fileContent = reader.ReadToEnd();
             Console.WriteLine("File content: {0}", fileContent);
             var periods = fileContent.Split(';');
 

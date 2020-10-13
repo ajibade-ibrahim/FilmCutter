@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using MediaToolkit;
@@ -20,7 +19,7 @@ namespace FilmCutter
                     Filename = filename
                 };
 
-                var outputname = filename.Split(
+                var outputFileName = filename.Split(
                     new[]
                     {
                         ".mp4"
@@ -29,7 +28,7 @@ namespace FilmCutter
 
                 var outputFile = new MediaFile
                 {
-                    Filename = string.Format("{0}{1}{2}", outputname, "~" + (index + 1), ".mp4")
+                    Filename = $"{outputFileName}{"~" + (index + 11)}.mp4"
                 };
 
                 var t1 = period.Split('-')[0];
@@ -47,10 +46,10 @@ namespace FilmCutter
 
                     var options = new ConversionOptions();
 
-                    // This example will create a 25 second video, starting from the 
+                    // This example will create a 25 second video, starting from the
                     // 30th second of the original video.
-                    //// First parameter requests the starting frame to cut the media from. 
-                    //// Second parameter requests how long to cut the video. 
+                    //// First parameter requests the starting frame to cut the media from.
+                    //// Second parameter requests how long to cut the video.
                     var span3 = span2 - span1;
                     options.CutMedia(span1, span3);
                     options.VideoSize = VideoSize.Hd720;
@@ -61,81 +60,73 @@ namespace FilmCutter
                     Console.WriteLine("Done cutting period {0}", period);
                 }
             }
-            catch (IndexOutOfRangeException ind)
+            catch (IndexOutOfRangeException indexOutOfRangeException)
             {
-                Console.WriteLine(ind.Message + ":" + ind.StackTrace);
+                Console.WriteLine($"{indexOutOfRangeException.Message}:{indexOutOfRangeException.StackTrace}");
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Console.WriteLine(e.Message + ":" + e.StackTrace);
+                Console.WriteLine($"{exception.Message}:{exception.StackTrace}");
             }
         }
 
         private static int GetNumber(string seconds)
         {
-            var sec = 0;
-
-            if (!string.IsNullOrEmpty(seconds))
+            try
             {
-                try
-                {
-                    sec = Convert.ToInt32(seconds);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message + '-' + ex.StackTrace);
-                }
+                return string.IsNullOrWhiteSpace(seconds) ? 0 : Convert.ToInt32(seconds);
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine($"{exception.Message}{'-'}{exception.StackTrace}");
             }
 
-            return sec;
+            return 0;
         }
 
         private static string[] GetPeriodsFromFile(string filename)
         {
-            // 00:12:34 - 01:23:13
-            var reader = new StreamReader(filename);
-            var fileContent = reader.ReadToEnd();
-            Console.WriteLine("File content: {0}", fileContent);
-            var periods = fileContent.Split(';');
-
-            foreach (var item in periods)
+            using (var reader = new StreamReader(filename))
             {
-                Console.WriteLine("Period: {0}", item);
-            }
+                // 00:12:34 - 01:23:13
+                var fileContent = reader.ReadToEnd();
+                Console.WriteLine("File content: {0}", fileContent);
+                var periods = fileContent.Split(';');
 
-            return periods;
+                foreach (var item in periods)
+                {
+                    Console.WriteLine("Period: {0}", item);
+                }
+
+                return periods;
+            }
         }
 
-        private static TimeSpan GetTimeSpan(string t1)
+        private static TimeSpan GetTimeSpan(string time)
         {
-            var x = t1.Split(':');
-            var s = x.Reverse();
-            var enumerable = s as IList<string> ?? s.ToList();
-            var seconds = enumerable.ElementAtOrDefault(0);
-            var sec = GetNumber(seconds);
-            var minutes = enumerable.ElementAtOrDefault(1);
-            var min = GetNumber(minutes);
-            var hour = enumerable.ElementAtOrDefault(2);
-            var hr = GetNumber(hour);
+            var timeParts = time.Split(':').Reverse().ToList();
+            var seconds = GetNumber(timeParts.ElementAtOrDefault(0));
+            var minutes = GetNumber(timeParts.ElementAtOrDefault(1));
+            var hours = GetNumber(timeParts.ElementAtOrDefault(2));
 
-            var time = new TimeSpan(hr, min, sec);
-            return time;
+            return new TimeSpan(hours, minutes, seconds);
         }
 
         private static void Main()
         {
-            const string videofilename = @"D:\Matches\Other\The Unmissable Match - Jay-Jay Okocha vs Carles Puyol.MP4";
-            const string periodsFilename = @"D:\text files\Jay Jay vs Team Puyol.txt";
+            const string VideoFileName =
+                @"D:\Documents\Soccer\Okocha\Batch 5\Fenerbahce vs Manchester United\Fenerbahce vs Manchester United.mp4";
+            const string PeriodsFilename = @"D:\text files\Jay Jay Feb vs ManU.txt";
 
-            var periods = GetPeriodsFromFile(periodsFilename);
+            var periods = GetPeriodsFromFile(PeriodsFilename);
 
             foreach (var period in periods)
             {
                 Console.WriteLine("Abt to cut period {0}", period);
-                CutFile(videofilename, period, periods.ToList().IndexOf(period));
+                CutFile(VideoFileName, period, periods.ToList().IndexOf(period));
             }
 
-            Console.WriteLine("Finished Cutting Periods");
+            Console.WriteLine("Finished Cutting Periods".GroupBy(x => x));
             Console.ReadLine();
         }
     }

@@ -6,8 +6,8 @@ namespace FilmCutter
     {
         private static void Main()
         {
-            const string VideoFileName = @"D:\Matches\Inter\FC Internazionale vs. Udinese 1997-1998 - Footballia.mp4";
-            const string PeriodsFilename = @"D:\Downloads\Video\Bashar\Excitement Excerpts\text\text.txt";
+            const string VideoFileName = @"D:\Matches\Ajax\Ajax vs Feyenoor - 1995\AFC Ajax vs. Feyenoord 1995.mp4";
+            const string PeriodsFilename = @"D:\text files\Kanu vs Feyenoord - 1995.txt";
 
             FilmCutter.CutFile(VideoFileName, PeriodsFilename, 0);
 

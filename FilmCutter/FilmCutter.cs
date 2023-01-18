@@ -37,7 +37,7 @@ namespace FilmCutter
                 },
                 StringSplitOptions.None)[0];
 
-            var outputFileName = $"{fileName}{"~" + (index + 1)}.mp4";
+            var outputFileName = $"{fileName}{"~" + (index + 5)}.mp4";
             return outputFileName;
         }
 
@@ -91,9 +91,10 @@ namespace FilmCutter
             {
                 // 00:12:34 - 01:23:13
                 var fileContent = reader.ReadToEnd();
-                Console.WriteLine("File content: {0}", fileContent);
+                Console.WriteLine("File content");
+                Console.WriteLine("------------");
                 var periods = fileContent.Split(';').Where(period => !string.IsNullOrWhiteSpace(period)).ToList();
-                periods.ForEach(period => Console.WriteLine("Period: {0}", period));
+                periods.ForEach(period => Console.WriteLine("Period: {0}", period.Trim()));
 
                 return periods;
             }

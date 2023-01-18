@@ -6,11 +6,13 @@ namespace FilmCutter
     {
         private static void Main()
         {
-            const string VideoFileName = @"D:\Matches\Ajax\Ajax vs Feyenoor - 1995\AFC Ajax vs. Feyenoord 1995.mp4";
-            const string PeriodsFilename = @"D:\text files\Kanu vs Feyenoord - 1995.txt";
+            const string VideoFileName = @"D:\Documents\Soccer\Ronaldinho\Ronaldinho ● The Most Skillful Player Ever ● Grêmio.MKV";
+            const string PeriodsFilename = @"D:\text files\dinho step.txt";
 
             FilmCutter.CutFile(VideoFileName, PeriodsFilename, 0);
 
+            Console.WriteLine();
+            Console.WriteLine("---------------------------------------------------");
             Console.WriteLine("Finished Cutting Periods");
             Console.ReadLine();
         }

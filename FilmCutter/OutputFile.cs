@@ -23,10 +23,10 @@ namespace FilmCutter
             FileName = fileName;
             var times = this.period.Split('-');
             var t1 = times[0];
-            Console.WriteLine("Time t1 : {0}", t1);
+            Console.WriteLine("Time t1 : {0}", t1.Trim());
 
             var t2 = times[1];
-            Console.WriteLine("Time t2 : {0}", t2);
+            Console.WriteLine("Time t2 : {0}", t2.Trim());
 
             Start = GetTimeSpan(t1.Trim());
             End = GetTimeSpan(t2.Trim());

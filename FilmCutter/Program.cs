@@ -6,10 +6,11 @@ namespace FilmCutter
     {
         private static void Main()
         {
-            const string VideoFileName = @"D:\Documents\Soccer\Ronaldinho\Ronaldinho ● The Most Skillful Player Ever ● Grêmio.MKV";
-            const string PeriodsFilename = @"D:\text files\dinho step.txt";
+            const string VideoFileName = @"D:\Documents\Soccer\Dinho vs Jay-Jay\Friendly  2002  Brazil vs   Yugoslavia.mp4";
+            const string PeriodsFilename = @"D:\text files\ajax 01-02.txt";
+            const string dimensions = "0112:0004:0624:0456";
 
-            FilmCutter.CutFile(VideoFileName, PeriodsFilename, 0);
+            FilmCutter.CutFile(VideoFileName, PeriodsFilename, 0, dimensions);
 
             Console.WriteLine();
             Console.WriteLine("---------------------------------------------------");
